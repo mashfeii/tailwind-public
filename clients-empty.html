@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+  <title>Выбор клиента</title>
+  <meta charset="UTF-8" />
+  <meta name="format-detection" content="telephone=no" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css?_v=20250412173953" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css?_v=20250412173953">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css?_v=20250412173953">
+  <link rel="stylesheet" href="./tailwind.min.css?_v=20250412173953" />
+  <link rel="stylesheet" href="./style.css?_v=20250412173953" />
+  <link rel="shortcut icon" href="favicon.ico" />
+  <!-- <meta name="robots" content="noindex, nofollow"> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+  <div class="wrapper flex flex-col gap-y-16.25 min-h-screen overflow-hidden bg-black-50">
+    <header class="flex items-center min-h-18 bg-[url(img/header-bg.jpg)] bg-[center_top] bg-no-repeat bg-cover
+    inset-shadow-[0_-1px_0_1px_rgba(255,255,255,0.1)]">
+      <div class="container mx-auto px-5 flex items-center gap-x-6">
+        <a class="block max-w-68.5 h-10 mr-9.5" href="javascript:void(0);">
+          <img class="w-full h-full object-contain" src="img/header-logo.svg" alt="" />
+        </a>
+
+        <div class="mr-auto">
+          <nav class="header-nav">
+            <ul class="flex items-center gap-x-6.5 font-medium text-primary-4 text-white">
+              <li class="relative py-2">
+                <a class="transition-colors hover:text-green-400" href="javascript:void(0);">Заявки</a>
+              </li>
+              <!-- <li class="relative py-2"> -->
+              <!--   <a -->
+              <!--     class="transition-colors hover:text-green-400" -->
+              <!--     href="javascript:void(0);" -->
+              <!--     >Настройки</a -->
+              <!--   > -->
+              <!--   <ul class="dropdown-menu text-primary-3 text-black-950"> -->
+              <!--     <li class="w-full"> -->
+              <!--       <a -->
+              <!--         class="w-full block text-center py-2.5 px-2 rounded-xl transition-colors hover:bg-black-50" -->
+              <!--         href="javascript:void(0);" -->
+              <!--         >Профайлы участников</a -->
+              <!--       > -->
+              <!--     </li> -->
+              <!--   </ul> -->
+              <!-- </li> -->
+            </ul>
+          </nav>
+        </div>
+
+        <div class="flex items-center gap-x-2">
+          <span class="font-secondary text-sm uppercase font-semibold text-white">
+            Супервайзер
+          </span>
+          <div id="user-block" class="blur-shadow relative">
+            <button id="user" type="button" class="cursor-pointer flex items-center gap-x-3.5 p-3 pl-4 transition-colors duration-300 rounded-xl">
+              <span class="text-primary-4 text-white transition-colors duration-300">
+                Владислав И.
+              </span>
+              <svg class="w-4 h-4 fill-white transition-colors duration-300">
+                <use xlink:href="img/icons/icons.svg#down" />
+              </svg>
+            </button>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="javascript:void(0);" class="w-full flex items-center justify-between gap-x-3 py-2.5 px-4 rounded-xl transition-colors hover:bg-black-50 text-primary-3 text-black-950">
+                  <span>Выход</span>
+                  <svg class="w-4 h-4 fill-black-950">
+                    <use xlink:href="img/icons/icons.svg#exit" />
+                  </svg>
+                </a>
+              </li>
+            </ul>
+
+          </div>
+        </div>
+        <button type="button" class="relative cursor-pointer blur-shadow p-3">
+          <svg class="w-4 h-4 fill-white">
+            <use xlink:href="img/icons/icons.svg#cart" />
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <main class="flex-auto">
+      <section class="container mx-auto px-5 flex flex-col gap-y-12">
+        <div class="flex justify-between gap-x-5">
+          <h1 class="text-4xl font-secondary font-semibold">Клиенты</h1>
+          <form action="#" class="search-form min-w-[656px]">
+            <div class="input-wrapper overflow-hidden w-full py-3 px-5 bg-white rounded-3xl transition-shadow duration-300 focus-within:outline-0 focus-within:inset-shadow-[0_0_0_2px_#33cc00] bg-[url(img/icons/search.svg)] bg-[left_1rem_center] bg-[16px] bg-no-repeat">
+              <input autocomplete="off" type="text" name="text" placeholder="Холдинг, название компании, ИНН, КПП, номер договора" class="w-full ml-6 text-primary-3 focus:outline-0" />
+            </div>
+          </form>
+        </div>
+        <div class="bg-white p-6 rounded-3xl">
+          <div class="min-h-82 flex flex-col items-center justify-center gap-y-6 rounded-xl bg-black-50">
+            <div class="flex-[0_0_6rem] w-24 h-24 flex items-center justify-center rounded-full bg-white">
+              <svg class="w-8 h-8 fill-black-400">
+                <use xlink:href="img/icons/icons.svg#empty" />
+              </svg>
+            </div>
+            <div class="text-primary-2 text-center text-black-500">
+              Клиентов не найдено. <br />
+              Попробуйте изменить условия поиска.
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="container mx-auto px-5 flex flex-col items-center text-primary-3 text-black-500 gap-x-6 gap-y-3 pb-10.5 md:flex-row">
+      <span class="md:mr-auto">&copy; Демлинк, 2025</span>
+      <div class="flex gap-x-10 items-center text-white lg:mr-30.5">
+        <a class="text-black-500 transition-colors duration-300 hover:text-green-400" href="mailto:help@demlinkatlas.ru"> help@demlinkatlas.ru </a>
+        <a class="text-black-500 transition-colors duration-300 hover:text-green-400" href="#">Документация</a>
+      </div>
+      <div class="flex items-start gap-2">
+        <span>Разработка сайта</span>
+        <a class="block w-16 h-4" href="javascript:void(0);" target="_blank">
+          <svg class="max-w-full max-h-full fill-black-950 transition-colors hover:fill-green-400">
+            <use xlink:href="img/icons/icons.svg#footer_logo" />
+          </svg>
+        </a>
+      </div>
+    </footer>
+
+  </div>
+  <div id="tech" aria-hidden="true" class="popup">
+    <div class="popup__wrapper">
+      <div class="popup__content bg-white">
+        <div class="flex flex-col gap-y-8 py-10 mx-auto max-w-80">
+          <h2 class="text-3xl font-secondary text-center">
+            Техническая поддержка
+          </h2>
+          <div class="flex flex-col text-primary-2 text-center text-black-600">
+            <span>Пн — пт, 09:00 — 19:00 </span>
+            <a class="text-blue-400 transition-colors hover:text-blue-600 focus:outline-0 focus:text-blue-600" href="mailto:help@demlink.ru">help@demlink.ru</a>
+            <span>+7 495 129-21-00, доб. 7009</span>
+          </div>
+        </div>
+        <div class="flex gap-x-4 py-5 px-6 border-t border-black-100">
+          <button data-close type="button" class="cursor-pointer w-full flex items-center justify-center p-3.5 gap-x-4 bg-black-50 rounded-xl text-black-950 transition-colors disabled:bg-black-100 disabled:text-black-400 hover:bg-black-50-hover active:bg-black-50-hover active:text-transp-black">
+            <span class="font-secondary font-semibold text-sm uppercase">закрыть</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="choice" aria-hidden="true" class="popup">
+    <div class="popup__wrapper">
+      <div class="popup__content bg-white">
+        <div class="flex flex-col gap-y-8 py-10 mx-auto max-w-80">
+          <h2 class="text-3xl font-secondary text-center">Выбор клиента</h2>
+          <div class="flex flex-col text-primary-2 text-center text-black-600">
+            <span>Вы уверены что хотите изменить юридическое лицо? Все данные
+              о заказах в корзине будут очищены безвозвратно.</span>
+          </div>
+        </div>
+        <div class="flex gap-x-4 py-5 px-6 border-t border-black-100">
+          <button data-close type="button" class="cursor-pointer w-full flex items-center justify-center p-3.5 gap-x-4 bg-black-50 rounded-xl text-black-950 transition-colors disabled:bg-black-100 disabled:text-black-400 hover:bg-black-50-hover active:bg-black-50-hover active:text-transp-black">
+            <span class="font-secondary font-semibold text-sm uppercase">закрыть</span>
+          </button>
+          <button type="button" class="cursor-pointer w-full flex items-center justify-center p-3.5 gap-x-4 bg-blue-400 rounded-xl text-white transition-colors disabled:bg-black-100 disabled:text-black-400 hover:bg-blue-hover active:bg-blue-hover active:text-transp-white">
+            <span class="font-secondary font-semibold text-sm uppercase">Изменить</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="quit" aria-hidden="true" class="popup">
+    <div class="popup__wrapper">
+      <div class="popup__content bg-white">
+        <div class="flex flex-col gap-y-8 py-10 mx-auto max-w-80">
+          <h2 class="text-3xl font-secondary text-center">Выход из аккаунта</h2>
+          <div class="flex flex-col text-primary-2 text-center text-black-600">
+            <span>Вы уверены что хотите выйти из аккаунта? Все данные о заказах в
+              корзине будут очищены безвозвратно.</span>
+          </div>
+        </div>
+        <div class="flex gap-x-4 py-5 px-6 border-t border-black-100">
+          <button data-close type="button" class="cursor-pointer w-full flex items-center justify-center p-3.5 gap-x-4 bg-black-50 rounded-xl text-black-950 transition-colors disabled:bg-black-100 disabled:text-black-400 hover:bg-black-50-hover active:bg-black-50-hover active:text-transp-black">
+            <span class="font-secondary font-semibold text-sm uppercase">отмена</span>
+          </button>
+          <button type="button" class="cursor-pointer w-full flex items-center justify-center p-3.5 gap-x-4 bg-blue-400 rounded-xl text-white transition-colors disabled:bg-black-100 disabled:text-black-400 hover:bg-blue-hover active:bg-blue-hover active:text-transp-white">
+            <span class="font-secondary font-semibold text-sm uppercase">выйти</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="map" aria-hidden="true" class="popup p-8">
+    <div class="popup__wrapper block h-0.5">
+      <div class="popup__content max-w-none h-full">
+        <div id="map-container" class="h-full border-none rounded-3xl focus:outline-0"></div>
+        <button type="button" data-close class="group cursor-pointer absolute z-999 top-6 right-6 w-12 h-12 flex items-center justify-center rounded-full shadow-(--shadow-light) bg-white transition-colors duration-300 hover:bg-black-50">
+          <svg class="w-4 h-4 fill-black-950 group-active:fill-transp-black">
+            <use xlink:href="img/icons/icons.svg#cross" />
+          </svg>
+        </button>
+        <div class="absolute z-999 top-6 left-6 flex gap-x-4">
+          <div class="group input-wrapper rounded-xl flex flex-col justify-center py-3 px-4 bg-white transition-shadow duration-300 focus-within:outline-0 focus-within:inset-shadow-[0_0_0_2px_#33cc00] flex-[0_0_512px]">
+            <label for="map-search-input" class="text-primary-4 text-black-500">Поиск по адресу</label>
+            <input id="map-search-input" name="map-search-input" type="text" placeholder="Введите улицу" class="w-full bg-transparent text-primary-2 focus:outline-0" />
+            <button data-clear type="button" class="cursor-pointer group absolute right-3 bottom-3 w-6 h-6 flex items-center justify-center">
+              <svg class="w-4 h-4 fill-black-400 transition-colors duration-300 group-hover:fill-black-950">
+                <use xlink:href="img/icons/icons.svg#cross" />
+              </svg>
+            </button>
+            <div data-map-suggestions class="dropdown absolute z-60 top-full left-0 right-0 max-w-full mt-2
+              transition-all duration-200
+              pointer-events-none opacity-0 invisible translate-y-2
+              [&.active]:pointer-events-auto [&.active]:opacity-100 [&.active]:visible [&.active]:translate-none">
+              <div class="flex max-h-80 flex-col p-4 bg-white rounded-[20px] text-primary-3 shadow-(--shadow-light)">
+              </div>
+            </div>
+          </div>
+          <div class="input-wrapper rounded-xl flex flex-col justify-center py-3 px-4 bg-white transition-shadow duration-300 focus-within:outline-0 focus-within:inset-shadow-[0_0_0_2px_#33cc00] flex-[0_0_208px]">
+            <label for="map-radius-input" class="text-primary-4 text-black-500">Радиус, км</label>
+            <input id="map-radius-input" name="map-radius-input" type="text" value="5" placeholder="Радиус поиска" class="w-full bg-transparent text-primary-2 focus:outline-0" />
+            <button data-clear type="button" class="cursor-pointer group absolute right-3 bottom-3 w-6 h-6 flex items-center justify-center">
+              <svg class="w-4 h-4 fill-black-400 transition-colors duration-300 group-hover:fill-black-950">
+                <use xlink:href="img/icons/icons.svg#cross" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="remove-all" aria-hidden="true" class="popup">
+    <div class="popup__wrapper">
+      <div class="popup__content bg-white">
+        <div class="flex flex-col gap-y-8 py-10 mx-auto max-w-80">
+          <h2 class="text-3xl font-secondary text-center">
+            Удалить все варианты
+          </h2>
+          <div class="flex flex-col text-primary-2 text-center text-black-600">
+            <span>Вы уверены что хотите удалить все варианты проживания? Восстановить
+              их будет не возможно.</span>
+          </div>
+        </div>
+        <div class="flex gap-x-4 py-5 px-6 border-t border-black-100">
+          <button data-close type="button" class="cursor-pointer w-full flex items-center justify-center p-3.5 gap-x-4 bg-black-50 rounded-xl text-black-950 transition-colors disabled:bg-black-100 disabled:text-black-400 hover:bg-black-50-hover active:bg-black-50-hover active:text-transp-black">
+            <span class="font-secondary font-semibold text-sm uppercase">Отмена</span>
+          </button>
+          <button type="button" class="cursor-pointer w-full flex items-center justify-center p-3.5 gap-x-4 bg-blue-400 rounded-xl text-white transition-colors disabled:bg-black-100 disabled:text-black-400 hover:bg-blue-hover active:bg-blue-hover active:text-transp-white">
+            <span class="font-secondary font-semibold text-sm uppercase">удалить все</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="new-client" aria-hidden="true" class="popup">
+    <div class="popup__wrapper">
+      <form action="#" id="new-client-form" data-one-select class="popup__content max-w-248 rounded-3xl shadow-(--light-shadow) bg-white">
+        <div class="pt-4.5 pb-5.5 px-6 flex flex-col gap-y-2">
+          <div class="flex items-center gap-x-6">
+            <span class="text-primary-2 text-black-500">Пол</span>
+            <div class="relative option flex items-center h-10">
+              <input hidden id="gender_1" class="option__input" checked type="radio" value="1" name="gender[]" />
+              <label for="gender_1" class="cursor-pointer w-full flex items-center gap-x-2.5 text-primary-3 after:top-3.5">
+                <span class="text-primary-2">Мужчина</span>
+              </label>
+            </div>
+            <div class="relative option flex items-center h-10">
+              <input hidden id="gender_2" class="option__input" type="radio" value="1" name="gender[]" />
+              <label for="gender_2" class="cursor-pointer w-full flex items-center gap-x-2.5 text-primary-3 after:top-3.5">
+                <span class="text-primary-2">Женщина</span>
+              </label>
+            </div>
+          </div>
+          <div class="grid grid-cols-3 gap-4">
+            <div class="relative input-wrapper rounded-xl flex flex-col justify-center py-3 px-4 bg-black-50
+      transition-colors transition-shadow duration-300
+      focus-within:inset-shadow-[0_0_0_2px_#33cc00] focus-within:bg-white ">
+              <label for="surname" class="text-primary-4 text-black-500">Фамилия</label>
+              <input id="surname" name="surname" type="text" placeholder="Фамилия" class="w-full bg-transparent text-primary-2 focus:outline-0 " />
+            </div>
+
+            <div class="relative input-wrapper rounded-xl flex flex-col justify-center py-3 px-4 bg-black-50
+      transition-colors transition-shadow duration-300
+      focus-within:inset-shadow-[0_0_0_2px_#33cc00] focus-within:bg-white ">
+              <label for="firstname" class="text-primary-4 text-black-500">Имя</label>
+              <input id="firstname" name="firstname" type="text" placeholder="Имя" class="w-full bg-transparent text-primary-2 focus:outline-0 " />
+            </div>
+
+            <div class="relative input-wrapper rounded-xl flex flex-col justify-center py-3 px-4 bg-black-50
+      transition-colors transition-shadow duration-300
+      focus-within:inset-shadow-[0_0_0_2px_#33cc00] focus-within:bg-white ">
+              <label for="patronymic" class="text-primary-4 text-black-500">Отчество</label>
+              <input id="patronymic" name="patronymic" type="text" placeholder="Отчество" class="w-full bg-transparent text-primary-2 focus:outline-0 " />
+            </div>
+
+            <div class="relative input-wrapper rounded-xl flex flex-col justify-center py-3 px-4 bg-black-50
+      transition-colors transition-shadow duration-300
+      focus-within:inset-shadow-[0_0_0_2px_#33cc00] focus-within:bg-white ">
+              <label for="lastname_en" class="text-primary-4 text-black-500">Last Name</label>
+              <input id="lastname_en" name="lastname_en" type="text" placeholder="Last Name" class="w-full bg-transparent text-primary-2 focus:outline-0 " />
+            </div>
+
+            <div class="relative input-wrapper rounded-xl flex flex-col justify-center py-3 px-4 bg-black-50
+      transition-colors transition-shadow duration-300
+      focus-within:inset-shadow-[0_0_0_2px_#33cc00] focus-within:bg-white ">
+              <label for="firstname_en" class="text-primary-4 text-black-500">First Name</label>
+              <input id="firstname_en" name="firstname_en" type="text" placeholder="First Name" class="w-full bg-transparent text-primary-2 focus:outline-0 " />
+            </div>
+
+            <div class="relative input-wrapper rounded-xl flex flex-col justify-center py-3 px-4 bg-black-50
+      transition-colors transition-shadow duration-300
+      focus-within:inset-shadow-[0_0_0_2px_#33cc00] focus-within:bg-white ">
+              <label for="patronymic_en" class="text-primary-4 text-black-500">Third Name</label>
+              <input id="patronymic_en" name="patronymic_en" type="text" placeholder="Third Name" class="w-full bg-transparent text-primary-2 focus:outline-0 " />
+            </div>
+
+            <div class="relative input-wrapper rounded-xl flex flex-col justify-center py-3 px-4 bg-black-50 transition-colors transition-shadow duration-300 focus-within:bg-white focus-within:inset-shadow-[0_0_0_2px_#33cc00]">
+              <label for="client-date" class="text-primary-4 text-black-500">Дата рождения</label>
+              <input id="client-date" name="client-birthday" type="text" readonly placeholder="12.02.1980" class="cursor-pointer w-full bg-transparent text-primary-2 focus:outline-0 bg-[url(img/icons/calendar.svg)] bg-[right_center] bg-no-repeat" />
+            </div>
+            <div class="relative input-wrapper rounded-xl flex flex-col justify-center py-3 px-4 bg-black-50
+      transition-colors transition-shadow duration-300
+      focus-within:inset-shadow-[0_0_0_2px_#33cc00] focus-within:bg-white ">
+              <label for="client-email" class="text-primary-4 text-black-500">Адрес эл. почты</label>
+              <input id="client-email" name="client-email" type="text" placeholder="Введите почту" class="w-full bg-transparent text-primary-2 focus:outline-0 " />
+            </div>
+
+            <div class="relative input-wrapper rounded-xl flex flex-col justify-center py-3 px-4 bg-black-50
+      transition-colors transition-shadow duration-300
+      focus-within:inset-shadow-[0_0_0_2px_#33cc00] focus-within:bg-white ">
+              <label for="client-phone" class="text-primary-4 text-black-500">Телефон</label>
+              <input id="client-phone" name="client-phone" type="text" placeholder="+790311112233" class="w-full bg-transparent text-primary-2 focus:outline-0 " />
+            </div>
+
+            <div class="relative input-wrapper rounded-xl flex flex-col justify-center py-3 px-4 bg-black-50 transition-colors transition-shadow duration-300 focus-within:inset-shadow-[0_0_0_2px_#33cc00] focus-within:bg-white">
+              <label for="client-national" class="text-primary-4 text-black-500">Гражданство</label>
+              <select required id="client-national" name="client-national" class="text-primary-2" data-scroll="220">
+                <option value="" data-class="text-black-500">
+                  Выбрать гражданство
+                </option>
+                <option value="Россия">Россия</option>
+                <option value="Австралия">Австралия</option>
+                <option value="Австрия">Австрия</option>
+                <option value="Азербайджан">Азербайджан</option>
+                <option value="Беларусь">Беларусь</option>
+                <option value="Бельгия">Бельгия</option>
+                <option value="Болгария">Болгария</option>
+                <option value="Великобритания">Великобритания</option>
+                <option value="Германия">Германия</option>
+              </select>
+            </div>
+            <div class="relative input-wrapper rounded-xl flex flex-col justify-center py-3 px-4 bg-black-50 transition-colors transition-shadow duration-300 focus-within:inset-shadow-[0_0_0_2px_#33cc00] focus-within:bg-white">
+              <label for="client-document" class="text-primary-4 text-black-500">Тип документа</label>
+              <select required id="client-document" name="client[]" class="text-primary-2" data-scroll="320">
+                <option value="" data-class="text-black-500">
+                  Выберите документ
+                </option>
+                <option value="1">Паспорт</option>
+                <option value="2">Свидетельство о рождении</option>
+                <option value="3">Свидетельство о выписке</option>
+                <option value="4">Свидетельство о регистрации</option>
+              </select>
+            </div>
+            <div class="relative input-wrapper rounded-xl flex flex-col justify-center py-3 px-4 bg-black-50
+      transition-colors transition-shadow duration-300
+      focus-within:inset-shadow-[0_0_0_2px_#33cc00] focus-within:bg-white ">
+              <label for="client-document-data" class="text-primary-4 text-black-500">Серия и номер</label>
+              <input id="client-document-data" name="client-document-data" type="text" placeholder="5020125569" class="w-full bg-transparent text-primary-2 focus:outline-0 " />
+            </div>
+
+            <div class="relative input-wrapper rounded-xl flex flex-col justify-center py-3 px-4 bg-black-50 transition-colors transition-shadow duration-300 focus-within:inset-shadow-[0_0_0_2px_#33cc00] focus-within:bg-white">
+              <label for="client-title" class="text-primary-4 text-black-500">Титул</label>
+              <select required id="client-title" name="client-title" class="text-primary-2" data-scroll="320">
+                <option value="Mr" selected>Mr</option>
+                <option value="Mrs">Mrs</option>
+                <option value="Ms">Ms</option>
+                <option value="Miss">Miss</option>
+              </select>
+            </div>
+            <div class="relative input-wrapper rounded-xl flex flex-col justify-center py-3 px-4 bg-black-50 transition-colors transition-shadow duration-300 focus-within:bg-white focus-within:inset-shadow-[0_0_0_2px_#33cc00]">
+              <label for="client-document-date" class="text-primary-4 text-black-500">Срок действия</label>
+              <input id="client-document-date" name="client-document-date" type="text" readonly placeholder="12.02.2025" class="cursor-pointer w-full bg-transparent text-primary-2 focus:outline-0 bg-[url(img/icons/calendar.svg)] bg-[right_center] bg-no-repeat" />
+            </div>
+          </div>
+          <div class="flex items-center gap-x-2 not-first:mt-2 text-primary-2 text-black-500">
+            <img src="img/icons/req.svg" alt="" class="w-4 h-4" />
+            <span>Все поля обязательны для заполнения</span>
+          </div>
+        </div>
+        <div class="flex gap-x-4 py-5 px-6 border-t border-black-100">
+          <button data-close type="button" class="cursor-pointer flex-1/2 flex items-center justify-center p-3.5 gap-x-4 bg-black-50 rounded-xl text-black-950 transition-colors disabled:bg-black-100 disabled:text-black-400 hover:bg-black-50-hover active:bg-black-50-hover active:text-transp-black">
+            <span class="font-secondary font-semibold text-sm uppercase">Отмена</span>
+          </button>
+          <button type="button" class="cursor-pointer min-h-12 flex items-center justify-center p-3.5 gap-x-4 bg-blue-400 rounded-xl text-white transition-colors disabled:cursor-default disabled:bg-black-100 disabled:text-black-400 hover:bg-blue-hover active:bg-blue-hover active:text-transp-white flex-1/2">
+            <span class="font-secondary font-semibold text-sm uppercase">Сохранить</span>
+          </button>
+
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="status-change" aria-hidden="true" class="popup">
+    <div class="popup__wrapper">
+      <div class="popup__content bg-white">
+        <div class="flex flex-col gap-y-8 py-10 mx-auto max-w-80">
+          <h2 class="text-3xl font-secondary text-center">Изменение статуса</h2>
+          <div class="flex flex-col text-primary-2 text-center text-black-600">
+            <span>Вы уверены, что хотите изменить статус заказа с «Корректировка»
+              на «Отмена»</span>
+          </div>
+        </div>
+        <div class="flex gap-x-4 py-5 px-6 border-t border-black-100">
+          <button data-close data-status-return type="button" class="cursor-pointer w-full flex items-center justify-center p-3.5 gap-x-4 bg-black-50 rounded-xl text-black-950 transition-colors disabled:bg-black-100 disabled:text-black-400 hover:bg-black-50-hover active:bg-black-50-hover active:text-transp-black">
+            <span class="font-secondary font-semibold text-sm uppercase">Отмена</span>
+          </button>
+          <button type="button" class="cursor-pointer w-full flex items-center justify-center p-3.5 gap-x-4 bg-blue-400 rounded-xl text-white transition-colors disabled:bg-black-100 disabled:text-black-400 hover:bg-blue-hover active:bg-blue-hover active:text-transp-white">
+            <span class="font-secondary font-semibold text-sm uppercase">Изменить</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="remove-trip" aria-hidden="true" class="popup">
+    <div class="popup__wrapper">
+      <div class="popup__content bg-white">
+        <div class="flex flex-col gap-y-8 py-10 mx-auto max-w-80">
+          <h2 class="text-3xl font-secondary text-center">Отмена командировки</h2>
+          <div class="flex flex-col text-primary-2 text-center text-black-600">
+            <span> Вы уверены что хотите отменить командировку? </span>
+          </div>
+        </div>
+        <div class="flex gap-x-4 py-5 px-6 border-t border-black-100">
+          <button data-close type="button" class="cursor-pointer w-full flex items-center justify-center p-3.5 gap-x-4 bg-black-50 rounded-xl text-black-950 transition-colors disabled:bg-black-100 disabled:text-black-400 hover:bg-black-50-hover active:bg-black-50-hover active:text-transp-black">
+            <span class="font-secondary font-semibold text-sm uppercase">нет, вернуться</span>
+          </button>
+          <button type="button" class="cursor-pointer w-full flex items-center justify-center p-3.5 gap-x-4 bg-blue-400 rounded-xl text-white transition-colors disabled:bg-black-100 disabled:text-black-400 hover:bg-blue-hover active:bg-blue-hover active:text-transp-white">
+            <span class="font-secondary font-semibold text-sm uppercase">
+              да, отменить
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="remove-order" aria-hidden="true" class="popup">
+    <div class="popup__wrapper">
+      <div class="popup__content bg-white">
+        <div class="flex flex-col gap-y-8 py-10 mx-auto max-w-80">
+          <h2 class="text-3xl font-secondary text-center">Отмена заказа</h2>
+          <div class="flex flex-col text-primary-2 text-center text-black-600">
+            <span> Вы уверены что хотите отменить заказ? </span>
+          </div>
+        </div>
+        <div class="flex gap-x-4 py-5 px-6 border-t border-black-100">
+          <button data-close type="button" class="cursor-pointer w-full flex items-center justify-center p-3.5 gap-x-4 bg-black-50 rounded-xl text-black-950 transition-colors disabled:bg-black-100 disabled:text-black-400 hover:bg-black-50-hover active:bg-black-50-hover active:text-transp-black">
+            <span class="font-secondary font-semibold text-sm uppercase">нет, вернуться</span>
+          </button>
+          <button type="button" class="cursor-pointer w-full flex items-center justify-center p-3.5 gap-x-4 bg-blue-400 rounded-xl text-white transition-colors disabled:bg-black-100 disabled:text-black-400 hover:bg-blue-hover active:bg-blue-hover active:text-transp-white">
+            <span class="font-secondary font-semibold text-sm uppercase">
+              да, отменить
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="description" aria-hidden="true" class="popup">
+    <div class="popup__wrapper">
+      <div class="popup__content max-w-164 bg-white">
+        <div class="flex items-center justify-between gap-x-5 py-5 pl-8 pr-6 border-b border-black-100">
+          <h2 class="text-3xl font-secondary text-center">
+            Описание тарифа
+          </h2>
+          <button data-close type="button" class="cursor-pointer group flex-[0_0_48px] w-12 h-12 flex items-center justify-center
+          focus:outline-none transition-all duration-300 hover:opacity-50">
+            <svg class="w-4 h-4 fill-black-950">
+              <use xlink:href="img/icons/icons.svg#cross" />
+            </svg>
+          </button>
+        </div>
+        <div class="p-8 text-primary-2">
+          Одна односпальная кровать. В вашем распоряжении приватное пространство, оборудованное LED освещением, розетками, вентиляцией и держателем для полотенец. Для хранения вещей предусмотрены индивидуальные шкафы. Постельное белье, тапочки и полотенце предоставляются бесплатно.
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js?_v=20250412173953"></script>
+  <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js?_v=20250412173953"></script>
+  <script src="js/app.min.js?_v=20250412173953"></script>
+
+</body>
+
+</html>

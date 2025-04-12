@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+  <title>Новая командировка</title>
+  <meta charset="UTF-8" />
+  <meta name="format-detection" content="telephone=no" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css?_v=20250412173953" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css?_v=20250412173953">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css?_v=20250412173953">
+  <link rel="stylesheet" href="./tailwind.min.css?_v=20250412173953" />
+  <link rel="stylesheet" href="./style.css?_v=20250412173953" />
+  <link rel="shortcut icon" href="favicon.ico" />
+  <!-- <meta name="robots" content="noindex, nofollow"> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+  <div class="wrapper flex flex-col gap-y-16 min-h-screen overflow-hidden bg-black-50">
+    <header class="bg-[url(img/header-bg.jpg)] bg-[center_top] bg-no-repeat bg-cover">
+      <div class="flex items-center min-h-18 border-b border-[#ffffff1a]">
+        <div class="container mx-auto px-5 flex items-center gap-x-6">
+          <a class="block max-w-68.5 h-10 mr-9.5" href="javascript:void(0);">
+            <img class="w-full h-full object-contain" src="img/header-logo.svg" alt="" />
+          </a>
+
+          <div class="mr-auto">
+            <nav class="header-nav">
+              <ul class="flex items-center gap-x-6.5 font-medium text-primary-4 text-white">
+                <li class="relative py-2">
+                  <a class="transition-colors hover:text-green-400" href="javascript:void(0);">Заявки</a>
+                </li>
+                <!-- <li class="relative py-2"> -->
+                <!--   <a -->
+                <!--     class="transition-colors hover:text-green-400" -->
+                <!--     href="javascript:void(0);" -->
+                <!--     >Настройки</a -->
+                <!--   > -->
+                <!--   <ul class="dropdown-menu text-primary-3 text-black-950"> -->
+                <!--     <li class="w-full"> -->
+                <!--       <a -->
+                <!--         class="w-full block text-center py-2.5 px-2 rounded-xl transition-colors hover:bg-black-50" -->
+                <!--         href="javascript:void(0);" -->
+                <!--         >Профайлы участников</a -->
+                <!--       > -->
+                <!--     </li> -->
+                <!--   </ul> -->
+                <!-- </li> -->
+              </ul>
+            </nav>
+          </div>
+
+          <div class="flex items-center gap-x-2">
+            <span class="font-secondary text-sm uppercase font-semibold text-white">
+              Клиент
+            </span>
+            <div class="blur-shadow relative">
+              <button type="button" class="cursor-pointer flex items-center gap-x-3.5 p-3 pl-4 transition-colors duration-300 rounded-xl">
+                <span class="text-primary-4 text-white transition-colors duration-300">
+                  OOO «РН-Комсомольский НПЗ»
+                </span>
+                <svg class="w-4 h-4 fill-white transition-colors duration-300">
+                  <use xlink:href="img/icons/icons.svg#exit" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="flex items-center gap-x-2">
+            <span class="font-secondary text-sm uppercase font-semibold text-white">
+              Супервайзер
+            </span>
+            <div id="user-block" class="blur-shadow relative">
+              <button id="user" type="button" class="cursor-pointer flex items-center gap-x-3.5 p-3 pl-4 transition-colors duration-300 rounded-xl">
+                <span class="text-primary-4 text-white transition-colors duration-300">
+                  Владислав И.
+                </span>
+                <svg class="w-4 h-4 fill-white transition-colors duration-300">
+                  <use xlink:href="img/icons/icons.svg#down" />
+                </svg>
+              </button>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="javascript:void(0);" class="w-full flex items-center justify-between gap-x-3 py-2.5 px-4 rounded-xl transition-colors hover:bg-black-50 text-primary-3 text-black-950">
+                    <span>Выход</span>
+                    <svg class="w-4 h-4 fill-black-950">
+                      <use xlink:href="img/icons/icons.svg#exit" />
+                    </svg>
+                  </a>
+                </li>
+              </ul>
+
+            </div>
+          </div>
+          <button type="button" class="relative cursor-pointer p-3 blur-shadow rounded-xl after:absolute after:-top-1 after:-right-1 after:w-3 after:h-3 after:rounded-full after:bg-green-400">
+            <svg class="w-4 h-4 fill-white">
+              <use xlink:href="img/icons/icons.svg#cart" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="container mx-auto px-5 py-4">
+        <ul class="breadcrumbs flex items-center gap-x-2">
+          <li class="flex items-center gap-x-2.5 height-4">
+            <a class="text-primary-4 text-black-transp-500 transition-colors duration-300 hover:text-white" href="javascript:void(0);">Командировки</a>
+          </li>
+          <li class="flex items-center gap-x-2.5 height-4">
+            <span class="text-primary-4 text-white">Новая командировка</span>
+          </li>
+        </ul>
+      </div>
+    </header>
+    <main class="flex-auto">
+      <section class="container mx-auto px-5 flex flex-col gap-y-12">
+        <div class="flex flex-col gap-y-2.5">
+          <div class="flex items-end gap-x-2.25">
+            <h1 class="text-4xl font-secondary gap-x-3">Новая командировка</h1>
+          </div>
+        </div>
+        <div class="flex-col rounded-3xl bg-white">
+          <div class="flex flex-col p-6 pt-5 gap-y-4">
+            <h3 class="text-lg font-secondary uppercase not-last:mb-2">
+              Маршрут
+            </h3>
+            <div data-routes-container class="grid grid-cols-[1fr_1fr_1fr_64px] gap-4">
+              <div class="group relative flex flex-col justify-center gap-y-0.5 py-3 px-5 rounded-xl bg-black-50
+        transition-colors transition-shadow duration-300
+        focus-within:inset-shadow-[0_0_0_2px_#33cc00] focus-within:bg-white
+        focus-within:after:-rotate-180 focus-within:after:pointer-events-auto
+        after:cursor-pointer after:absolute after:right-4 after:bottom-4 after:w-4 after:h-4
+        after:pointer-events-none after:transition-transform after:duration-300
+        after:bg-[url(img/icons/down-grey.svg)] after:bg-contain after:bg-no-repeat">
+                <label for="trip-from-1" class="text-primary-4 text-black-500">Откуда</label>
+                <input data-city-input id="trip-from-1" name="from[]" type="text" placeholder="Укажите город" class="cursor-pointer w-full bg-transparent text-primary-2 focus:outline-0 focus:cursor-text" />
+                <div class="dropdown absolute z-60 top-full left-0 right-0 max-w-full mt-2
+    transition-all duration-200
+    pointer-events-none opacity-0 invisible translate-y-2
+    group-focus-within:pointer-events-auto group-focus-within:opacity-100 group-focus-within:visible group-focus-within:translate-none">
+                  <div data-cities-list class="flex max-h-80 flex-col p-4 bg-white rounded-[20px] text-primary-3 shadow-(--shadow-light)">
+                  </div>
+                </div>
+              </div>
+
+              <div class="group relative flex flex-col justify-center gap-y-0.5 py-3 px-5 rounded-xl bg-black-50
+        transition-colors transition-shadow duration-300
+        focus-within:inset-shadow-[0_0_0_2px_#33cc00] focus-within:bg-white
+        focus-within:after:-rotate-180 focus-within:after:pointer-events-auto
+        after:cursor-pointer after:absolute after:right-4 after:bottom-4 after:w-4 after:h-4
+        after:pointer-events-none after:transition-transform after:duration-300
+        after:bg-[url(img/icons/down-grey.svg)] after:bg-contain after:bg-no-repeat">
+                <label for="trip-to-1" class="text-primary-4 text-black-500">Куда</label>
+                <input data-city-input id="trip-to-1" name="from[]" type="text" placeholder="Укажите город" class="cursor-pointer w-full bg-transparent text-primary-2 focus:outline-0 focus:cursor-text" />
+                <div class="dropdown absolute z-60 top-full left-0 right-0 max-w-full mt-2
+    transition-all duration-200
+    pointer-events-none opacity-0 invisible translate-y-2
+    group-focus-within:pointer-events-auto group-focus-within:opacity-100 group-focus-within:visible group-focus-within:translate-none">
+                  <div data-cities-list class="flex max-h-80 flex-col p-4 bg-white rounded-[20px] text-primary-3 shadow-(--shadow-light)">
+                  </div>
+                </div>
+              </div>
+
+              <div class="relative input-wrapper rounded-xl flex flex-col justify-center py-3 px-4 bg-black-50 transition-colors transition-shadow duration-300 focus-within:bg-white focus-within:inset-shadow-[0_0_0_2px_#33cc00]">
+                <label for="trip-date-1" class="text-primary-4 text-black-500">Дата</label>
+                <input id="trip-date-1" name="trip-date-1" type="text" placeholder="Выберите дату" class="cursor-pointer w-full bg-transparent text-primary-2 focus:outline-0 focus:cursor-text bg-[url(img/icons/calendar.svg)] bg-[right_center] bg-no-repeat" />
+              </div>
+              <span></span>
+            </div>
+            <button type="button" data-new-route class="max-w-77 cursor-pointer min-h-12 flex items-center justify-center p-3.5 gap-x-4 bg-black-50 rounded-xl text-black-950 transition-colors disabled:cursor-default disabled:bg-black-100 disabled:text-black-400 hover:bg-black-50-hover active:bg-black-50-hover active:text-transp-black">
+              <span class="font-secondary font-semibold text-sm uppercase">Добавить</span>
+              <svg class="w-4 h-4 fill-black-950">
+                <use xlink:href="img/icons/icons.svg#plus" />
+              </svg>
+            </button>
+          </div>
+          <div class="flex items-center gap-x-2 before:w-2 before:h-2 before:bg-black-50 before:rounded-r-lg after:w-2 after:h-2 after:bg-black-50 after:rounded-l-lg">
+            <div class="w-full h-0.5 bg-[url(img/icons/horline.svg)] bg-repeat-x"></div>
+          </div>
+          <div data-one-select class="flex flex-col p-6 pt-5 gap-y-4">
+            <h3 class="text-lg font-secondary uppercase not-last:mb-2">Участники</h3>
+            <div class="flex flex-col gap-y-2">
+              <div class="flex items-center gap-x-6">
+                <span class="text-primary-2 text-black-500">Пол</span>
+                <div class="relative option flex items-center h-10">
+                  <input hidden id="gender_1" class="option__input" checked type="radio" value="1" name="gender[]" />
+                  <label for="gender_1" class="cursor-pointer w-full flex items-center gap-x-2.5 text-primary-3 after:top-3.5">
+                    <span class="text-primary-2">Мужчина</span>
+                  </label>
+                </div>
+                <div class="relative option flex items-center h-10">
+                  <input hidden id="gender_2" class="option__input" type="radio" value="1" name="gender[]" />
+                  <label for="gender_2" class="cursor-pointer w-full flex items-center gap-x-2.5 text-primary-3 after:top-3.5">
+                    <span class="text-primary-2">Женщина</span>
+                  </label>
+                </div>
+              </div>
+              <div class="grid grid-cols-3 gap-4">
+                <div class="relative input-wrapper rounded-xl flex flex-col justify-center py-3 px-4 bg-black-50
+      transition-colors transition-shadow duration-300
+      focus-within:inset-shadow-[0_0_0_2px_#33cc00] focus-within:bg-white ">
+                  <label for="surname" class="text-primary-4 text-black-500">Фамилия</label>
+                  <input id="surname" name="surname" type="text" placeholder="Фамилия" class="w-full bg-transparent text-primary-2 focus:outline-0 " />
+                </div>
+
+                <div class="relative input-wrapper rounded-xl flex flex-col justify-center py-3 px-4 bg-black-50
+      transition-colors transition-shadow duration-300
+      focus-within:inset-shadow-[0_0_0_2px_#33cc00] focus-within:bg-white ">
+                  <label for="firstname" class="text-primary-4 text-black-500">Имя</label>
+                  <input id="firstname" name="firstname" type="text" placeholder="Имя" class="w-full bg-transparent text-primary-2 focus:outline-0 " />
+                </div>
+
+                <div class="relative input-wrapper rounded-xl flex flex-col justify-center py-3 px-4 bg-black-50
+      transition-colors transition-shadow duration-300
+      focus-within:inset-shadow-[0_0_0_2px_#33cc00] focus-within:bg-white ">
+                  <label for="patronymic" class="text-primary-4 text-black-500">Отчество</label>
+                  <input id="patronymic" name="patronymic" type="text" placeholder="Отчество" class="w-full bg-transparent text-primary-2 focus:outline-0 " />
+                </div>
+
+                <div class="relative input-wrapper rounded-xl flex flex-col justify-center py-3 px-4 bg-black-50
+      transition-colors transition-shadow duration-300
+      focus-within:inset-shadow-[0_0_0_2px_#33cc00] focus-within:bg-white ">
+                  <label for="lastname_en" class="text-primary-4 text-black-500">Last Name</label>
+                  <input id="lastname_en" name="lastname_en" type="text" placeholder="Last Name" class="w-full bg-transparent text-primary-2 focus:outline-0 " />
+                </div>
+
+                <div class="relative input-wrapper rounded-xl flex flex-col justify-center py-3 px-4 bg-black-50
+      transition-colors transition-shadow duration-300
+      focus-within:inset-shadow-[0_0_0_2px_#33cc00] focus-within:bg-white ">
+                  <label for="firstname_en" class="text-primary-4 text-black-500">First Name</label>
+                  <input id="firstname_en" name="firstname_en" type="text" placeholder="First Name" class="w-full bg-transparent text-primary-2 focus:outline-0 " />
+                </div>
+
+                <div class="relative input-wrapper rounded-xl flex flex-col justify-center py-3 px-4 bg-black-50
+      transition-colors transition-shadow duration-300
+      focus-within:inset-shadow-[0_0_0_2px_#33cc00] focus-within:bg-white ">
+                  <label for="patronymic_en" class="text-primary-4 text-black-500">Third Name</label>
+                  <input id="patronymic_en" name="patronymic_en" type="text" placeholder="Third Name" class="w-full bg-transparent text-primary-2 focus:outline-0 " />
+                </div>
+
+                <div class="relative input-wrapper rounded-xl flex flex-col justify-center py-3 px-4 bg-black-50
+                    transition-colors transition-shadow duration-300
+                    focus-within:bg-white focus-within:inset-shadow-[0_0_0_2px_#33cc00]">
+                  <label for="creation-date" class="text-primary-4 text-black-500">Дата рождения</label>
+                  <input id="client-date" name="client-birthday" type="text" readonly placeholder="12.02.1980" class="cursor-pointer w-full bg-transparent text-primary-2 focus:outline-0 bg-[url(img/icons/calendar.svg)] bg-[right_center] bg-no-repeat" />
+                </div>
+                <div class="relative input-wrapper rounded-xl flex flex-col justify-center py-3 px-4 bg-black-50
+      transition-colors transition-shadow duration-300
+      focus-within:inset-shadow-[0_0_0_2px_#33cc00] focus-within:bg-white ">
+                  <label for="client-email" class="text-primary-4 text-black-500">Адрес эл. почты</label>
+                  <input id="client-email" name="client-email" type="text" placeholder="Введите почту" class="w-full bg-transparent text-primary-2 focus:outline-0 " />
+                </div>
+
+                <div class="relative input-wrapper rounded-xl flex flex-col justify-center py-3 px-4 bg-black-50
+      transition-colors transition-shadow duration-300
+      focus-within:inset-shadow-[0_0_0_2px_#33cc00] focus-within:bg-white ">
+                  <label for="client-phone" class="text-primary-4 text-black-500">Телефон</label>
+                  <input id="client-phone" name="client-phone" type="text" placeholder="+790311112233" class="w-full bg-transparent text-primary-2 focus:outline-0 " />
+                </div>
+
+                <div class="relative input-wrapper rounded-xl flex flex-col justify-center py-3 px-4 bg-black-50
+                    transition-colors transition-shadow duration-300
+                    focus-within:inset-shadow-[0_0_0_2px_#33cc00] focus-within:bg-white">
+                  <label for="client-document" class="text-primary-4 text-black-500">Гражданство</label>
+                  <select required name="client-national" class="text-primary-2" data-scroll="220">
+                    <option value="Россия" selected>Россия</option>
+                    <option value="Австралия">Австралия</option>
+                    <option value="Австрия">Австрия</option>
+                    <option value="Азербайджан">Азербайджан</option>
+                    <option value="Беларусь">Беларусь</option>
+                    <option value="Бельгия">Бельгия</option>
+                    <option value="Болгария">Болгария</option>
+                    <option value="Великобритания">Великобритания</option>
+                    <option value="Германия">Германия</option>
+                  </select>
+                </div>
+                <div class="relative input-wrapper rounded-xl flex flex-col justify-center py-3 px-4 bg-black-50
+                    transition-colors transition-shadow duration-300
+                    focus-within:inset-shadow-[0_0_0_2px_#33cc00] focus-within:bg-white">
+                  <label for="client-document" class="text-primary-4 text-black-500">Тип документа</label>
+                  <select required name="client[]" class="text-primary-2" data-scroll="320">
+                    <option value="" data-class="text-black-500">Выберите документ</option>
+                    <option value="1">Паспорт</option>
+                    <option value="2">Свидетельство о рождении</option>
+                    <option value="3">Свидетельство о выписке</option>
+                    <option value="4">Свидетельство о регистрации</option>
+                  </select>
+                </div>
+                <div class="relative input-wrapper rounded-xl flex flex-col justify-center py-3 px-4 bg-black-50
+      transition-colors transition-shadow duration-300
+      focus-within:inset-shadow-[0_0_0_2px_#33cc00] focus-within:bg-white ">
+                  <label for="client-document-data" class="text-primary-4 text-black-500">Серия и номер</label>
+                  <input id="client-document-data" name="client-document-data" type="text" placeholder="5020125569" class="w-full bg-transparent text-primary-2 focus:outline-0 " />
+                </div>
+
+                <div class="relative input-wrapper rounded-xl flex flex-col justify-center py-3 px-4 bg-black-50
+                    transition-colors transition-shadow duration-300
+                    focus-within:inset-shadow-[0_0_0_2px_#33cc00] focus-within:bg-white">
+                  <label for="client-document" class="text-primary-4 text-black-500">Титул</label>
+                  <select required name="client-title" class="text-primary-2" data-scroll="320">
+                    <option value="Mr" selected>Mr</option>
+                    <option value="Mrs">Mrs</option>
+                    <option value="Ms">Ms</option>
+                    <option value="Miss">Miss</option>
+                  </select>
+                </div>
+                <div class="relative input-wrapper rounded-xl flex flex-col justify-center py-3 px-4 bg-black-50
+                    transition-colors transition-shadow duration-300
+                    focus-within:bg-white focus-within:inset-shadow-[0_0_0_2px_#33cc00]">
+                  <label for="creation-date" class="text-primary-4 text-black-500">Срок действия</label>
+                  <input id="client-document-date" name="client-document-date" type="text" readonly placeholder="12.02.2025" class="cursor-pointer w-full bg-transparent text-primary-2 focus:outline-0 bg-[url(img/icons/calendar.svg)] bg-[right_center] bg-no-repeat" />
+                </div>
+              </div>
+              <div class="flex items-center gap-x-2 not-first:mt-2 text-primary-2 text-black-500">
+                <img src="img/icons/req.svg" alt="" class="w-4 h-4">
+                <span>Все поля обязательны для заполнения</span>
+              </div>
+            </div>
+            <div class="flex items-center justify-end gap-x-4">
+              <button type="button" class="cursor-pointer min-h-12 flex items-center justify-center p-3.5 gap-x-4 bg-black-50 rounded-xl text-black-950 transition-colors disabled:cursor-default disabled:bg-black-100 disabled:text-black-400 hover:bg-black-50-hover active:bg-black-50-hover active:text-transp-black flex-[0_0_308px]">
+                <span class="font-secondary font-semibold text-sm uppercase">Отмена</span>
+              </button>
+
+              <button type="button" class="cursor-pointer min-h-12 flex items-center justify-center p-3.5 gap-x-4 bg-blue-400 rounded-xl text-white transition-colors disabled:cursor-default disabled:bg-black-100 disabled:text-black-400 hover:bg-blue-hover active:bg-blue-hover active:text-transp-white flex-[0_0_308px]">
+                <span class="font-secondary font-semibold text-sm uppercase">Сохранить</span>
+              </button>
+
+            </div>
+          </div>
+          <div class="flex items-center gap-x-2 before:w-2 before:h-2 before:bg-black-50 before:rounded-r-lg after:w-2 after:h-2 after:bg-black-50 after:rounded-l-lg">
+            <div class="w-full h-0.5 bg-[url(img/icons/horline.svg)] bg-repeat-x"></div>
+          </div>
+          <div class="flex flex-col p-6 pt-5 gap-y-4">
+            <h3 class="text-lg font-secondary uppercase not-last:mb-2">название</h3>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="relative input-wrapper rounded-xl flex flex-col justify-center py-3 px-4 bg-black-50 transitioin-colors transition-shadow
+  duration-300 focus-within:bg-white focus-within:inset-shadow-[0_0_0_2px_#33cc00] ">
+                <label for="trip-name" class="text-primary-4 text-black-500">Введите текст</label>
+                <input id="trip-name" name="trip-name" type="text" value="Командировка 02.04.2024-04.12.2024, Сочи-Уфа" placeholder="Командировка 02.04.2024-04.12.2024, Сочи-Уфа" class="w-full bg-transparent text-primary-2 focus:outline-0 " />
+              </div>
+
+            </div>
+          </div>
+          <div class="flex justify-end gap-x-4 py-5 px-6 border-t border-black-100">
+            <button type="button" disabled class="cursor-pointer min-h-12 flex items-center justify-center p-3.5 gap-x-4 bg-black-50 rounded-xl
+                text-black-950 transition-colors disabled:cursor-default disabled:bg-black-100 disabled:text-black-400
+                hover:bg-black-50-hover active:bg-black-50-hover active:text-transp-black flex-[0_0_308px]">
+              <span class="font-secondary font-semibold text-sm uppercase">Отмена</span>
+            </button>
+            <button type="button" disabled class="cursor-pointer min-h-12 flex items-center justify-center p-3.5 gap-x-4 bg-blue-400 rounded-xl
+                text-white transition-colors disabled:cursor-default disabled:bg-black-100 disabled:text-black-400
+                hover:bg-blue-hover active:bg-blue-hover active:text-transp-white flex-[0_0_308px]">
+              <span class="font-secondary font-semibold text-sm uppercase">Продолжить</span>
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="container mx-auto px-5 flex flex-col items-center text-primary-3 text-black-500 gap-x-6 gap-y-3 pb-10.5 md:flex-row">
+      <span class="md:mr-auto">&copy; Демлинк, 2025</span>
+      <div class="flex gap-x-10 items-center text-white lg:mr-30.5">
+        <a class="text-black-500 transition-colors duration-300 hover:text-green-400" href="mailto:help@demlinkatlas.ru"> help@demlinkatlas.ru </a>
+        <a class="text-black-500 transition-colors duration-300 hover:text-green-400" href="#">Документация</a>
+      </div>
+      <div class="flex items-start gap-2">
+        <span>Разработка сайта</span>
+        <a class="block w-16 h-4" href="javascript:void(0);" target="_blank">
+          <svg class="max-w-full max-h-full fill-black-950 transition-colors hover:fill-green-400">
+            <use xlink:href="img/icons/icons.svg#footer_logo" />
+          </svg>
+        </a>
+      </div>
+    </footer>
+
+  </div>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js?_v=20250412173953"></script>
+  <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js?_v=20250412173953"></script>
+  <script src="js/app.min.js?_v=20250412173953"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,801 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+  <title>Командировка (закрыта)</title>
+  <meta charset="UTF-8" />
+  <meta name="format-detection" content="telephone=no" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css?_v=20250412173953" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css?_v=20250412173953">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css?_v=20250412173953">
+  <link rel="stylesheet" href="./tailwind.min.css?_v=20250412173953" />
+  <link rel="stylesheet" href="./style.css?_v=20250412173953" />
+  <link rel="shortcut icon" href="favicon.ico" />
+  <!-- <meta name="robots" content="noindex, nofollow"> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+  <div class="wrapper flex flex-col gap-y-16 min-h-screen overflow-hidden bg-black-50">
+    <header class="bg-[url(img/header-bg.jpg)] bg-[center_top] bg-no-repeat bg-cover">
+      <div class="flex items-center min-h-18 border-b border-[#ffffff1a]">
+        <div class="container mx-auto px-5 flex items-center gap-x-6">
+          <a class="block max-w-68.5 h-10 mr-9.5" href="javascript:void(0);">
+            <img class="w-full h-full object-contain" src="img/header-logo.svg" alt="" />
+          </a>
+
+          <div class="mr-auto">
+            <nav class="header-nav">
+              <ul class="flex items-center gap-x-6.5 font-medium text-primary-4 text-white">
+                <li class="relative py-2">
+                  <a class="transition-colors hover:text-green-400" href="javascript:void(0);">Заявки</a>
+                </li>
+                <!-- <li class="relative py-2"> -->
+                <!--   <a -->
+                <!--     class="transition-colors hover:text-green-400" -->
+                <!--     href="javascript:void(0);" -->
+                <!--     >Настройки</a -->
+                <!--   > -->
+                <!--   <ul class="dropdown-menu text-primary-3 text-black-950"> -->
+                <!--     <li class="w-full"> -->
+                <!--       <a -->
+                <!--         class="w-full block text-center py-2.5 px-2 rounded-xl transition-colors hover:bg-black-50" -->
+                <!--         href="javascript:void(0);" -->
+                <!--         >Профайлы участников</a -->
+                <!--       > -->
+                <!--     </li> -->
+                <!--   </ul> -->
+                <!-- </li> -->
+              </ul>
+            </nav>
+          </div>
+
+          <div class="flex items-center gap-x-2">
+            <span class="font-secondary text-sm uppercase font-semibold text-white">
+              Клиент
+            </span>
+            <div class="blur-shadow relative">
+              <button type="button" class="cursor-pointer flex items-center gap-x-3.5 p-3 pl-4 transition-colors duration-300 rounded-xl">
+                <span class="text-primary-4 text-white transition-colors duration-300">
+                  OOO «РН-Комсомольский НПЗ»
+                </span>
+                <svg class="w-4 h-4 fill-white transition-colors duration-300">
+                  <use xlink:href="img/icons/icons.svg#exit" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="flex items-center gap-x-2">
+            <span class="font-secondary text-sm uppercase font-semibold text-white">
+              Супервайзер
+            </span>
+            <div id="user-block" class="blur-shadow relative">
+              <button id="user" type="button" class="cursor-pointer flex items-center gap-x-3.5 p-3 pl-4 transition-colors duration-300 rounded-xl">
+                <span class="text-primary-4 text-white transition-colors duration-300">
+                  Владислав И.
+                </span>
+                <svg class="w-4 h-4 fill-white transition-colors duration-300">
+                  <use xlink:href="img/icons/icons.svg#down" />
+                </svg>
+              </button>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="javascript:void(0);" class="w-full flex items-center justify-between gap-x-3 py-2.5 px-4 rounded-xl transition-colors hover:bg-black-50 text-primary-3 text-black-950">
+                    <span>Выход</span>
+                    <svg class="w-4 h-4 fill-black-950">
+                      <use xlink:href="img/icons/icons.svg#exit" />
+                    </svg>
+                  </a>
+                </li>
+              </ul>
+
+            </div>
+          </div>
+          <button type="button" class="relative cursor-pointer p-3 blur-shadow rounded-xl after:absolute after:-top-1 after:-right-1 after:w-3 after:h-3 after:rounded-full after:bg-green-400">
+            <svg class="w-4 h-4 fill-white">
+              <use xlink:href="img/icons/icons.svg#cart" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="container mx-auto px-5 py-4">
+        <ul class="breadcrumbs flex items-center gap-x-2">
+          <li class="flex items-center gap-x-2.5 height-4">
+            <a class="text-primary-4 text-black-transp-500 transition-colors duration-300 hover:text-white" href="javascript:void(0);">Командировки</a>
+          </li>
+          <li class="flex items-center gap-x-2.5 height-4">
+            <span class="text-primary-4 text-white">К-4992564</span>
+          </li>
+        </ul>
+      </div>
+    </header>
+    <main class="flex-auto">
+      <section class="container mx-auto px-5 flex flex-col gap-y-12">
+        <div class="flex items-start justify-between gap-x-8">
+          <div class="flex flex-col gap-y-2">
+            <h1 class="inline-flex flex-col text-4xl font-secondary gap-x-3">
+              <span>Командировка 02.04.2024 — 04.12.2024</span>
+              <span>Сочи — Уфа</span>
+            </h1>
+            <span class="text-primary-2 font-medium text-black-500">К-499256</span>
+          </div>
+          <div class="inline-flex items-center justify-center gap-x-1.5 py-2 px-4 bg-black-200 text-black-600 whitespace-nowrap rounded-xl ">
+            <span class="w-3 h-3 rounded-full bg-black-600"></span>
+            <span class="text-primary-2 font-medium">Завершена</span>
+          </div>
+
+        </div>
+        <div class="flex-col rounded-3xl bg-white">
+          <div class="flex items-start gap-x-4 m-6 p-6 bg-black-50 rounded-xl">
+            <div class="flex flex-col flex-[1_0_auto]">
+              <span class="text-primary-4 text-black-500">Инициатор</span>
+              <strong class="text-3xl font-secondary">
+                Сидоров <br />
+                Иван Петрович
+              </strong>
+            </div>
+            <div class="flex flex-col flex-[0_0_192px]">
+              <span class="text-primary-4 text-black-500">Дата создания</span>
+              <strong class="text-3xl font-secondary">
+                02.12.2024 <br />
+                17:35
+              </strong>
+            </div>
+            <div class="flex flex-col flex-[0_0_192px]">
+              <span class="text-primary-4 text-black-500">Даты командировки</span>
+              <strong class="text-3xl font-secondary">
+                04.12.2024 <br />
+                04.04.2024
+              </strong>
+            </div>
+            <div class="flex flex-col flex-[0_0_208px] text-right">
+              <span class="text-primary-4 text-black-500">Общая стоимость</span>
+              <strong class="text-3xl font-secondary"> 5 500.00 ₽ </strong>
+            </div>
+          </div>
+          <div class="flex items-center gap-x-2 before:w-2 before:h-2 before:bg-black-50 before:rounded-r-lg after:w-2 after:h-2 after:bg-black-50 after:rounded-l-lg">
+            <div class="w-full h-0.5 bg-[url(img/icons/horline.svg)] bg-repeat-x"></div>
+          </div>
+          <div class="flex flex-col p-6 pt-5 gap-y-4">
+            <h3 class="text-lg font-secondary uppercase not-last:mb-2">
+              Участники
+            </h3>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="relative flex flex-col p-3 pr-16 rounded-xl bg-black-50 text-primary-2">
+                <span>Иванов Иван Михайлович</span>
+                <span class="text-black-500">01.02.1986</span>
+                <span class="text-black-500">OOO «РН-Комсомольский НПЗ»</span>
+                <button class="cursor-pointer absolute top-3 right-3 w-10 h-10 flex items-center justify-center" type="button">
+                  <svg class="w-4 h-4 fill-black-950 stroke-black-50">
+                    <use xlink:href="img/icons/icons.svg#trash" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="group/search-client relative input-wrapper rounded-xl flex flex-col justify-center py-3 px-4 bg-black-50 transition-shadow transition-colors duration-300 focus-within:inset-shadow-[0_0_0_2px_#33cc00] focus-within:bg-white focus-within:after:-rotate-180 after:absolute after:right-4 after:bottom-4 after:w-4 after:h-4 after:pointer-events-none after:bg-[url(img/icons/down-grey.svg)] after:bg-contain after:bg-no-repeat after:transition-transform after:duration-300">
+                <label for="first" class="text-primary-4 text-black-500">Добавить участника</label>
+                <input id="first" name="participant" type="text" readonly placeholder="Выбрать" class="cursor-pointer w-full bg-transparent text-primary-2 focus:outline-0" />
+                <div data-search-client class="absolute z-30 bottom-[calc(100%+8px)] left-0 flex flex-col rounded-[20px] bg-white shadow-(--shadow-light) transition-all duration-300 invisible opacity-0 -translate-y-3 group-focus-within/search-client:visible group-focus-within/search-client:opacity-100 group-focus-within/search-client:-translate-y-0">
+                  <div class="py-4 px-6 border-b border-black-100">
+                    <input autocomplete="off" type="text" name="name" placeholder="Поиск" class="w-full pl-8 text-primary-3 bg-no-repeat bg-[url('img/icons/search.svg')] bg-[left_4px_top_1px] bg-[1rem] placeholder:text-black-400 focus:outline-0" />
+                  </div>
+                  <ul data-simplebar class="max-h-69 flex flex-col p-3 pr-7 border-b border-black-100">
+                    <li class="cursor-pointer group flex flex-col py-3 px-4 rounded-xl text-primary-3 transition-colors duration-300 hover:bg-black-50">
+                      <strong class="font-medium transition-colors duration-300 group-hover:text-blue-400">Иванов Иван</strong>
+                      <span class="font-black-500">31.05.1985 <br />
+                        OOO «РН-Комсомольский»</span>
+                    </li>
+                    <li class="cursor-pointer group flex flex-col py-3 px-4 rounded-xl text-primary-3 transition-colors duration-300 hover:bg-black-50">
+                      <strong class="font-medium transition-colors duration-300 group-hover:text-blue-400">Петров Петр Сергеевич</strong>
+                      <span class="font-black-500">31.05.1985 <br />
+                        OOO «РН-Комсомольский»</span>
+                    </li>
+                    <li class="cursor-pointer group flex flex-col py-3 px-4 rounded-xl text-primary-3 transition-colors duration-300 hover:bg-black-50">
+                      <strong class="font-medium transition-colors duration-300 group-hover:text-blue-400">Козлов Владимир Сергеевич</strong>
+                      <span class="font-black-500">31.05.1985 <br />
+                        OOO «РН-Комсомольский»</span>
+                    </li>
+                    <li class="cursor-pointer group flex flex-col py-3 px-4 rounded-xl text-primary-3 transition-colors duration-300 hover:bg-black-50">
+                      <strong class="font-medium transition-colors duration-300 group-hover:text-blue-400">Иванов Иван</strong>
+                      <span class="font-black-500">31.05.1985 <br />
+                        OOO «РН-Комсомольский»</span>
+                    </li>
+                    <li class="cursor-pointer group flex flex-col py-3 px-4 rounded-xl text-primary-3 transition-colors duration-300 hover:bg-black-50">
+                      <strong class="font-medium transition-colors duration-300 group-hover:text-blue-400">Петров Петр Сергеевич</strong>
+                      <span class="font-black-500">31.05.1985 <br />
+                        OOO «РН-Комсомольский»</span>
+                    </li>
+                    <li class="cursor-pointer group flex flex-col py-3 px-4 rounded-xl text-primary-3 transition-colors duration-300 hover:bg-black-50">
+                      <strong class="font-medium transition-colors duration-300 group-hover:text-blue-400">Козлов Владимир Сергеевич</strong>
+                      <span class="font-black-500">31.05.1985 <br />
+                        OOO «РН-Комсомольский»</span>
+                    </li>
+                  </ul>
+                  <div class="p-3">
+                    <button type="button" data-popup="#new-client" class="group/button cursor-pointer w-full flex items-center justify-between pl-6 pr-4 py-3.5 gap-x-4 bg-black-50 rounded-xl text-black-950 transition-colors disabled:bg-black-100 disabled:text-black-400 hover:bg-black-50-hover active:bg-black-50-hover active:text-transp-black">
+                      <span class="font-secondary font-semibold text-sm uppercase">новый участник</span>
+                      <svg class="w-4 h-4 fill-black-950 transition-colors duration-300 group-disabled/button:fill-black-400 group-active/button:fill-transp-black">
+                        <use xlink:href="img/icons/icons.svg#plus"></use>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center gap-x-2 before:w-2 before:h-2 before:bg-black-50 before:rounded-r-lg after:w-2 after:h-2 after:bg-black-50 after:rounded-l-lg">
+            <div class="w-full h-0.5 bg-[url(img/icons/horline.svg)] bg-repeat-x"></div>
+          </div>
+          <div class="flex flex-col p-6 pt-5 gap-y-4">
+            <h3 class="text-lg font-secondary uppercase not-last:mb-2">
+              Заказы
+            </h3>
+            <div data-tabs class="flex flex-col gap-y-6">
+              <nav data-tabs-titles class="flex gap-x-2">
+                <button type="button" class="cursor-pointer group flex items-center justify-center gap-x-2 py-3.5 px-6 rounded-xl bg-black-50 transition-colors duration-300 hover:bg-black-100 [&.tab-active]:bg-blue-400 disabled:cursor-default disabled:event-pointers-none disabled:bg-black-100 tab-active">
+                  <span class="uppercase font-secondary text-sm transition-colors duration-300 group-[.tab-active]:text-white group-disabled:text-black-400">
+                    Все
+                  </span>
+                  <span class="h-5 inline-flex items-center justify-center pt-1.25 pb-0.75 px-2 text-primary-5 text-white font-medium bg-blue-400 rounded-full transition-colors duration-300 group-[.tab-active]:bg-blue-600 group-disabled:bg-black-200 group-disabled:text-black-400">
+                    1
+                  </span>
+                </button>
+                <button type="button" disabled class="cursor-pointer group flex items-center justify-center gap-x-2 py-3.5 px-6 rounded-xl bg-black-50 transition-colors duration-300 hover:bg-black-100 [&.tab-active]:bg-blue-400 disabled:cursor-default disabled:event-pointers-none disabled:bg-black-100">
+                  <span class="uppercase font-secondary text-sm transition-colors duration-300 group-[.tab-active]:text-white group-disabled:text-black-400">
+                    отменены
+                  </span>
+                  <span class="h-5 inline-flex items-center justify-center py-1 px-2 text-primary-5 text-white font-medium bg-blue-400 rounded-full transition-colors duration-300 group-[.tab-active]:bg-blue-600 group-disabled:bg-black-200 group-disabled:text-black-400">
+                    0
+                  </span>
+                </button>
+              </nav>
+              <div data-tabs-body>
+                <div class="flex flex-col gap-y-4">
+                  <div class="relative grid grid-cols-[1fr_312px] rounded-xl bg-black-50">
+                    <div class="flex flex-col border-r border-black-200">
+                      <div class="flex flex-col p-6 gap-y-6 border-b border-black-200">
+                        <div class="flex flex-col gap-y-2">
+                          <div class="flex items-start gap-x-4">
+                            <h2 data-tooltip="Зеленая Роща Санаторий Зеленая Роща Санаторий" class="relative flex flex-col text-3xl font-secondary mr-auto after:content-[attr(data-tooltip)] after:absolute after:normal-case after:-top-9 after:left-0 after:py-2 after:px-3 after:bg-[rgba(12,12,14,0.7)] after:rounded-xl after:font-sans after:font-regular after:text-primary-4 after:whitespace-nowrap after:text-white after:opacity-0 after:invisible after:-translate-y-1 after:transition-all after:duration-300 hover:after:opacity-100 hover:after:visible hover:after:translate-y-0">
+                              <span>№ З-121</span>
+                              <span class="max-w-170 cursor-pointer truncate">
+                                Зеленая Роща Санаторий Зеленая Роща Санаторий
+                              </span>
+                              <span class="relative flex items-center gap-x-1.5 after:self-start after:-mt-0.5 after:-ml-1.5 after:w-4 after:h-4 after:bg-[url(img/icons/star.svg)]"> 5 </span>
+                            </h2>
+                            <div class="flex gap-2 flex-wrap">
+                              <div class="inline-flex items-center gap-x-1.5 py-1 px-2.5 bg-black-100 text-black-950 rounded-xl ">
+                                <span class="text-primary-4">AcademService</span>
+                              </div>
+                              <div class="inline-flex items-center gap-x-1.5 py-1 px-2.5 bg-black-100 text-black-950 rounded-xl ">
+                                <span class="text-primary-4">Санаторий</span>
+                              </div>
+
+                            </div>
+                          </div>
+                          <span class="text-primary-4">Россия, Уфа, 450022, улица Менделеева, 136, корпус 5</span>
+                        </div>
+                        <div class="flex flex-col">
+                          <div class="flex items-center">
+                            <span class="flex-[0_0_128px] text-4xl font-secondary"> 08:10 </span>
+                            <div class="flex-auto h-0.25 border-b border-black-200 mr-2"></div>
+                            <div class="flex items-center gap-x-1.5 py-1 px-2.5 bg-black-100 text-black-950 rounded-xl">
+                              <span class="text-primary-4">1 ночь</span>
+                            </div>
+                            <div class="flex-auto h-0.25 border-b border-black-200 ml-2"></div>
+                            <span class="flex-[0_0_128px] text-right text-4xl font-secondary">
+                              12:15
+                            </span>
+                          </div>
+                          <div class="flex items-center justify-between text-primary-4 text-black-500">
+                            <span>18 марта, ср</span>
+                            <span>19 марта, чт</span>
+                          </div>
+                        </div>
+                        <div class="flex flex-wrap gap-1 text-primary-4 text-black-500 *:flex *:items-center *:gap-x-1 *:after:w-0.5 *:after:h-0.5 *:after:bg-black-500 *:after:rounded-full *:last:after:hidden">
+                          <span>Сувенирный магазин</span>
+                          <span>Аптечный пункт</span>
+                          <span>Вызов такси</span>
+                          <span>Услуги прачечной</span>
+                          <span>Беспроводной доступ в Интернет в публичных зонах</span>
+                          <span>Лифт</span>
+                          <span>Парковка охраняемая</span>
+                          <span>Бильярд</span>
+                          <span>Крытый плавательный бассейн</span>
+                          <span>Массаж</span>
+                          <span>СПА-центр</span>
+                          <span>Халат по запросу</span>
+                          <span>Тапочки по запросу</span>
+                          <span>Фен по запросу</span>
+                          <span>Утюг по запросу</span>
+                          <span>Кондиционирование в отдельных номерах</span>
+                          <span>Сейф во всех номерах</span>
+                          <span>Минибар/холодильник во всех номерах</span>
+                          <span>Халат в отдельных номерах</span>
+                          <span>Тапочки в отдельных номерах</span>
+                          <span>Душевая кабина в отдельных номерах</span>
+                          <span>Фен в отдельных номерах</span>
+                          <span>Чайник во всех номерах</span>
+                          <span>Высокоскоростной доступ в Интернет во всех номерах</span>
+                        </div>
+                      </div>
+                      <div class="flex items-start gap-x-6 py-4 px-6 not-last:border-b not-last:border-black-200">
+                        <div class="flex flex-col gap-y-2 mr-auto">
+                          <span class="text-primary-2 font-medium">1-местный 1-комнатный, 2*, корпус 4</span>
+                          <span class="text-primary-4 text-red-600">Отмена без штрафа доступна до 01.12.2024, 06:00 по местному времени.
+                            <br />
+                            По истечении срока взимается штраф в размере 2 105,00 ₽.</span>
+                        </div>
+                        <button data-popup="#description" type="button" class="group h-6 cursor-pointer flex items-center gap-x-1 text-primary-4
+      transition-colors duration-300 focus:outline-0 hover:text-blue-600">
+                          <span>Подробнее о тарифе</span>
+                          <svg class="w-4 h-1 fill-black-400 transition-colors duration-300 group-hover:fill-black-900">
+                            <use xlink:href="img/icons/icons.svg#dots" />
+                          </svg>
+                        </button>
+                        <div data-tooltip="Завтрак шведский стол" class="relative w-10 h-10 flex flex-col items-center justify-center rounded-xl p-2 bg-orange-200 after:absolute after:z-20 after:-top-9 after:whitespace-nowrap after:left-0 after:py-2 after:px-3 after:bg-[rgba(12,12,14,0.7)] after:rounded-xl after:text-primary-4 after:text-white after:content-[attr(data-tooltip)] after:opacity-0 after:invisible after:translate-y-1 after:transition-all after:duration-300 hover:after:opacity-100 hover:after:visible hover:after:translate-y-0">
+                          <svg class="w-6 h-6 fill-orange-600">
+                            <use xlink:href="img/icons/icons.svg#cup" />
+                          </svg>
+                        </div>
+                      </div>
+                      <div class="flex flex-col gap-y-3.75 p-6 not-last:border-b not-last:border-black-200">
+                        <span class="text-primary-2 font-medium">Проездные документы и файлы</span>
+                        <div>
+                          <a href="javascript:void(0);" class="group h-8 flex items-center justify-between gap-x-3 text-primary-4 border-t border-black-100">
+                            <span class="text-blue-400 transition-colors duration-300 group-hover:text-blue-600">1-местный 1-комнатный 2* корпус 4.pdf</span>
+                            <span class="mr-auto inlinfe-flex items-center gap-x-1.5 text-black-500">
+                              <span class="inline-flex items-center gap-x-1.5 not-last:after:w-0.5 not-last:after:h-0.5 not-last:after:rounded-full not-last:after:bg-black-500">
+                                PDF
+                              </span>
+                              <span class="inline-flex items-center gap-x-1.5 not-last:after:w-0.5 not-last:after:h-0.5 not-last:after:rounded-full not-last:after:bg-black-500">
+                                13Кб
+                              </span>
+                              <span class="inline-flex items-center gap-x-1.5 not-last:after:w-0.5 not-last:after:h-0.5 not-last:after:rounded-full not-last:after:bg-black-500">
+                                12.06.2024, 12:24
+                              </span>
+                            </span>
+                            <span class="text-black-950">Ваучер</span>
+                          </a>
+                          <a href="javascript:void(0);" class="group h-8 flex items-center justify-between gap-x-3 text-primary-4 border-t border-black-100">
+                            <span class="text-blue-400 transition-colors duration-300 group-hover:text-blue-600">1-местный 1-комнатный 2* корпус 4.pdf</span>
+                            <span class="mr-auto inlinfe-flex items-center gap-x-1.5 text-black-500">
+                              <span class="inline-flex items-center gap-x-1.5 not-last:after:w-0.5 not-last:after:h-0.5 not-last:after:rounded-full not-last:after:bg-black-500">
+                                PDF
+                              </span>
+                              <span class="inline-flex items-center gap-x-1.5 not-last:after:w-0.5 not-last:after:h-0.5 not-last:after:rounded-full not-last:after:bg-black-500">
+                                13Кб
+                              </span>
+                              <span class="inline-flex items-center gap-x-1.5 not-last:after:w-0.5 not-last:after:h-0.5 not-last:after:rounded-full not-last:after:bg-black-500">
+                                12.06.2024, 12:24
+                              </span>
+                            </span>
+                            <span class="text-black-950">Ваучер</span>
+                          </a>
+                          <a href="javascript:void(0);" class="group h-8 flex items-center justify-between gap-x-3 text-primary-4 border-t border-black-100">
+                            <span class="text-blue-400 transition-colors duration-300 group-hover:text-blue-600">1-местный 1-комнатный 2* корпус 4.pdf</span>
+                            <span class="mr-auto inlinfe-flex items-center gap-x-1.5 text-black-500">
+                              <span class="inline-flex items-center gap-x-1.5 not-last:after:w-0.5 not-last:after:h-0.5 not-last:after:rounded-full not-last:after:bg-black-500">
+                                PDF
+                              </span>
+                              <span class="inline-flex items-center gap-x-1.5 not-last:after:w-0.5 not-last:after:h-0.5 not-last:after:rounded-full not-last:after:bg-black-500">
+                                13Кб
+                              </span>
+                              <span class="inline-flex items-center gap-x-1.5 not-last:after:w-0.5 not-last:after:h-0.5 not-last:after:rounded-full not-last:after:bg-black-500">
+                                12.06.2024, 12:24
+                              </span>
+                            </span>
+                            <span class="text-black-950">Ваучер</span>
+                          </a>
+                        </div>
+                      </div>
+                      <div class="flex flex-col gap-y-3.75 p-6 not-last:border-b not-last:border-black-200">
+                        <span class="text-primary-2 font-medium">Иванов Иван Иванович</span>
+                        <div class="grid grid-cols-4 gap-x-4">
+                          <div class="flex flex-col border-t border-black-100 py-2 text-primary-4">
+                            <span class="text-black-500">Тип документа</span>
+                            <span>Паспорт</span>
+                          </div>
+                          <div class="flex flex-col border-t border-black-100 py-2 text-primary-4">
+                            <span class="text-black-500">Дата рождения</span>
+                            <span>16.05.1989</span>
+                          </div>
+                          <div class="flex flex-col border-t border-black-100 py-2 text-primary-4">
+                            <span class="text-black-500">Гражданство</span>
+                            <span>Россия</span>
+                          </div>
+                          <div class="flex flex-col border-t border-black-100 py-2 text-primary-4">
+                            <span class="text-black-500">Адрес эл. почты</span>
+                            <span>somemail@mail.ru</span>
+                          </div>
+                          <div class="flex flex-col border-t border-black-100 py-2 text-primary-4">
+                            <span class="text-black-500">Серия и номер</span>
+                            <span>5020125569</span>
+                          </div>
+                          <div class="flex flex-col border-t border-black-100 py-2 text-primary-4">
+                            <span class="text-black-500">Титул</span>
+                            <span>Mr</span>
+                          </div>
+                          <div class="flex flex-col border-t border-black-100 py-2 text-primary-4">
+                            <span class="text-black-500">Срок действия</span>
+                            <span>15.09.2025</span>
+                          </div>
+                          <div class="flex flex-col border-t border-black-100 py-2 text-primary-4">
+                            <span class="text-black-500">Телефон</span>
+                            <span>+79261234567</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="flex flex-col gap-y-3.75 p-6 not-last:border-b not-last:border-black-200">
+                        <span class="text-primary-2 font-medium">Иванов Иван Иванович</span>
+                        <div class="grid grid-cols-4 gap-x-4">
+                          <div class="flex flex-col border-t border-black-100 py-2 text-primary-4">
+                            <span class="text-black-500">Тип документа</span>
+                            <span>Паспорт</span>
+                          </div>
+                          <div class="flex flex-col border-t border-black-100 py-2 text-primary-4">
+                            <span class="text-black-500">Дата рождения</span>
+                            <span>16.05.1989</span>
+                          </div>
+                          <div class="flex flex-col border-t border-black-100 py-2 text-primary-4">
+                            <span class="text-black-500">Гражданство</span>
+                            <span>Россия</span>
+                          </div>
+                          <div class="flex flex-col border-t border-black-100 py-2 text-primary-4">
+                            <span class="text-black-500">Адрес эл. почты</span>
+                            <span>somemail@mail.ru</span>
+                          </div>
+                          <div class="flex flex-col border-t border-black-100 py-2 text-primary-4">
+                            <span class="text-black-500">Серия и номер</span>
+                            <span>5020125569</span>
+                          </div>
+                          <div class="flex flex-col border-t border-black-100 py-2 text-primary-4">
+                            <span class="text-black-500">Титул</span>
+                            <span>Mr</span>
+                          </div>
+                          <div class="flex flex-col border-t border-black-100 py-2 text-primary-4">
+                            <span class="text-black-500">Срок действия</span>
+                            <span>15.09.2025</span>
+                          </div>
+                          <div class="flex flex-col border-t border-black-100 py-2 text-primary-4">
+                            <span class="text-black-500">Телефон</span>
+                            <span>+79261234567</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <form action="#" class="flex flex-col">
+                      <div class="flex flex-col gap-y-2 p-6 border-b border-black-200">
+                        <div class="flex items-center justify-between gap-x-2">
+                          <div class="inline-flex items-center gap-x-1.5 py-1 px-2 pr-2.5 bg-black-100 text-black-600 rounded-xl whitespace-nowrap ">
+                            <span class="w-2 h-2 rounded-full bg-black-600"></span>
+                            <span class="text-primary-4">Закрыт</span>
+                          </div>
+
+                        </div>
+                        <span class="text-primary-4 text-black-500">
+                          Создан: 12.03.2024, 12:32, Иванов И. И. <br>
+                          Выписан 22.11.2024, 17:55, Сидоров А. А. <br>
+                          № брони: 36453 <br>
+                          Статус брони: Выписан
+                        </span>
+                      </div>
+                      <div class="flex flex-col gap-y-4 px-6 py-4 border-b border-black-100">
+                        <h3 class="text-primary-2 font-semibold">Стоимость</h3>
+                        <div class="flex flex-col gap-y-2 text-primary-3">
+                          <div class="h-6 flex items-center justify-between gap-x-2">
+                            <span>Тариф</span>
+                            <span class="flex-auto h-0.5 bg-[url(img/icons/horline.svg)] bg-repeat-x"></span>
+                            <strong class="font-semibold">13 569,00 ₽</strong>
+                          </div>
+                          <div class="flex flex-col gap-y-1 py-1 px-2 bg-white rounded-lg">
+                            <div class="h-6 flex items-center justify-between gap-x-2">
+                              <span class="text-black-500">Комиссия агентства</span>
+                              <span class="flex-auto h-0.5 bg-[url(img/icons/horline.svg)] bg-repeat-x"></span>
+                              <strong class="font-semibold">45,00 ₽</strong>
+                            </div>
+                            <div class="h-6 flex items-center justify-between gap-x-2">
+                              <span class="text-black-500">Ранний заезд</span>
+                              <span class="flex-auto h-0.5 bg-[url(img/icons/horline.svg)] bg-repeat-x"></span>
+                              <strong class="font-semibold">2 450,00 ₽</strong>
+                            </div>
+                            <div class="h-6 flex items-center justify-between gap-x-2">
+                              <span class="text-black-500">Поздний выезд</span>
+                              <span class="flex-auto h-0.5 bg-[url(img/icons/horline.svg)] bg-repeat-x"></span>
+                              <strong class="font-semibold">2 450,00 ₽</strong>
+                            </div>
+                            <div class="h-6 flex items-center justify-between gap-x-2">
+                              <span class="text-black-500">Сервисный сбор</span>
+                              <span class="flex-auto h-0.5 bg-[url(img/icons/horline.svg)] bg-repeat-x"></span>
+                              <strong class="font-semibold">450,00 ₽</strong>
+                            </div>
+                          </div>
+                          <div class="h-6 flex items-center justify-between gap-x-2">
+                            <span>НДС на сервисный сбор</span>
+                            <span class="flex-auto h-0.5 bg-[url(img/icons/horline.svg)] bg-repeat-x"></span>
+                            <strong class="font-semibold">21,00 ₽</strong>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="flex-auto flex flex-col gap-y-4 p-6">
+                        <div class="flex items-end justify-between gap-x-5">
+                          <span class="text-primary-2 font-semibold">Итого</span>
+                          <span class="text-primary-1 font-semibold">10 485,52 ₽</span>
+                        </div>
+                      </div>
+                    </form>
+
+                  </div>
+                  <div class="relative grid grid-cols-[1fr_312px] rounded-xl bg-black-50">
+                    <div class="flex flex-col border-r border-black-200">
+                      <div class="flex flex-col p-6 gap-y-6 border-b border-black-200">
+                        <div class="flex flex-col gap-y-2">
+                          <div class="flex items-start gap-x-4">
+                            <h2 data-tooltip="Зеленая Роща Санаторий Зеленая Роща Санаторий" class="relative flex flex-col text-3xl font-secondary mr-auto after:content-[attr(data-tooltip)] after:absolute after:normal-case after:-top-9 after:left-0 after:py-2 after:px-3 after:bg-[rgba(12,12,14,0.7)] after:rounded-xl after:font-sans after:font-regular after:text-primary-4 after:whitespace-nowrap after:text-white after:opacity-0 after:invisible after:-translate-y-1 after:transition-all after:duration-300 hover:after:opacity-100 hover:after:visible hover:after:translate-y-0">
+                              <span>№ З-121</span>
+                              <span class="max-w-170 cursor-pointer truncate">
+                                Зеленая Роща Санаторий Зеленая Роща Санаторий
+                              </span>
+                              <span class="relative flex items-center gap-x-1.5 after:self-start after:-mt-0.5 after:-ml-1.5 after:w-4 after:h-4 after:bg-[url(img/icons/star.svg)]"> 5 </span>
+                            </h2>
+                            <div class="flex gap-2 flex-wrap">
+                              <div class="inline-flex items-center gap-x-1.5 py-1 px-2.5 bg-black-100 text-black-950 rounded-xl ">
+                                <span class="text-primary-4">AcademService</span>
+                              </div>
+                              <div class="inline-flex items-center gap-x-1.5 py-1 px-2.5 bg-black-100 text-black-950 rounded-xl ">
+                                <span class="text-primary-4">Санаторий</span>
+                              </div>
+
+                            </div>
+                          </div>
+                          <span class="text-primary-4">Россия, Уфа, 450022, улица Менделеева, 136, корпус 5</span>
+                        </div>
+                        <div class="flex flex-col">
+                          <div class="flex items-center">
+                            <span class="flex-[0_0_128px] text-4xl font-secondary"> 08:10 </span>
+                            <div class="flex-auto h-0.25 border-b border-black-200 mr-2"></div>
+                            <div class="flex items-center gap-x-1.5 py-1 px-2.5 bg-black-100 text-black-950 rounded-xl">
+                              <span class="text-primary-4">1 ночь</span>
+                            </div>
+                            <div class="flex-auto h-0.25 border-b border-black-200 ml-2"></div>
+                            <span class="flex-[0_0_128px] text-right text-4xl font-secondary">
+                              12:15
+                            </span>
+                          </div>
+                          <div class="flex items-center justify-between text-primary-4 text-black-500">
+                            <span>18 марта, ср</span>
+                            <span>19 марта, чт</span>
+                          </div>
+                        </div>
+                        <div class="flex flex-wrap gap-1 text-primary-4 text-black-500 *:flex *:items-center *:gap-x-1 *:after:w-0.5 *:after:h-0.5 *:after:bg-black-500 *:after:rounded-full *:last:after:hidden">
+                          <span>Сувенирный магазин</span>
+                          <span>Аптечный пункт</span>
+                          <span>Вызов такси</span>
+                          <span>Услуги прачечной</span>
+                          <span>Беспроводной доступ в Интернет в публичных зонах</span>
+                          <span>Лифт</span>
+                          <span>Парковка охраняемая</span>
+                          <span>Бильярд</span>
+                          <span>Крытый плавательный бассейн</span>
+                          <span>Массаж</span>
+                          <span>СПА-центр</span>
+                          <span>Халат по запросу</span>
+                          <span>Тапочки по запросу</span>
+                          <span>Фен по запросу</span>
+                          <span>Утюг по запросу</span>
+                          <span>Кондиционирование в отдельных номерах</span>
+                          <span>Сейф во всех номерах</span>
+                          <span>Минибар/холодильник во всех номерах</span>
+                          <span>Халат в отдельных номерах</span>
+                          <span>Тапочки в отдельных номерах</span>
+                          <span>Душевая кабина в отдельных номерах</span>
+                          <span>Фен в отдельных номерах</span>
+                          <span>Чайник во всех номерах</span>
+                          <span>Высокоскоростной доступ в Интернет во всех номерах</span>
+                        </div>
+                      </div>
+                      <div class="flex items-start gap-x-6 py-4 px-6 not-last:border-b not-last:border-black-200">
+                        <div class="flex flex-col gap-y-2 mr-auto">
+                          <span class="text-primary-2 font-medium">1-местный 1-комнатный, 2*, корпус 4</span>
+                          <span class="text-primary-4 text-red-600">Отмена без штрафа доступна до 01.12.2024, 06:00 по местному времени.
+                            <br />
+                            По истечении срока взимается штраф в размере 2 105,00 ₽.</span>
+                        </div>
+                        <button data-popup="#description" type="button" class="group h-6 cursor-pointer flex items-center gap-x-1 text-primary-4
+      transition-colors duration-300 focus:outline-0 hover:text-blue-600">
+                          <span>Подробнее о тарифе</span>
+                          <svg class="w-4 h-1 fill-black-400 transition-colors duration-300 group-hover:fill-black-900">
+                            <use xlink:href="img/icons/icons.svg#dots" />
+                          </svg>
+                        </button>
+                        <div data-tooltip="Завтрак шведский стол" class="relative w-10 h-10 flex flex-col items-center justify-center rounded-xl p-2 bg-orange-200 after:absolute after:z-20 after:-top-9 after:whitespace-nowrap after:left-0 after:py-2 after:px-3 after:bg-[rgba(12,12,14,0.7)] after:rounded-xl after:text-primary-4 after:text-white after:content-[attr(data-tooltip)] after:opacity-0 after:invisible after:translate-y-1 after:transition-all after:duration-300 hover:after:opacity-100 hover:after:visible hover:after:translate-y-0">
+                          <svg class="w-6 h-6 fill-orange-600">
+                            <use xlink:href="img/icons/icons.svg#cup" />
+                          </svg>
+                        </div>
+                      </div>
+                      <div class="flex flex-col gap-y-3.75 p-6 not-last:border-b not-last:border-black-200">
+                        <span class="text-primary-2 font-medium">Проездные документы и файлы</span>
+                        <div>
+                          <a href="javascript:void(0);" class="group h-8 flex items-center justify-between gap-x-3 text-primary-4 border-t border-black-100">
+                            <span class="text-blue-400 transition-colors duration-300 group-hover:text-blue-600">1-местный 1-комнатный 2* корпус 4.pdf</span>
+                            <span class="mr-auto inlinfe-flex items-center gap-x-1.5 text-black-500">
+                              <span class="inline-flex items-center gap-x-1.5 not-last:after:w-0.5 not-last:after:h-0.5 not-last:after:rounded-full not-last:after:bg-black-500">
+                                PDF
+                              </span>
+                              <span class="inline-flex items-center gap-x-1.5 not-last:after:w-0.5 not-last:after:h-0.5 not-last:after:rounded-full not-last:after:bg-black-500">
+                                13Кб
+                              </span>
+                              <span class="inline-flex items-center gap-x-1.5 not-last:after:w-0.5 not-last:after:h-0.5 not-last:after:rounded-full not-last:after:bg-black-500">
+                                12.06.2024, 12:24
+                              </span>
+                            </span>
+                            <span class="text-black-950">Ваучер</span>
+                          </a>
+                          <a href="javascript:void(0);" class="group h-8 flex items-center justify-between gap-x-3 text-primary-4 border-t border-black-100">
+                            <span class="text-blue-400 transition-colors duration-300 group-hover:text-blue-600">1-местный 1-комнатный 2* корпус 4.pdf</span>
+                            <span class="mr-auto inlinfe-flex items-center gap-x-1.5 text-black-500">
+                              <span class="inline-flex items-center gap-x-1.5 not-last:after:w-0.5 not-last:after:h-0.5 not-last:after:rounded-full not-last:after:bg-black-500">
+                                PDF
+                              </span>
+                              <span class="inline-flex items-center gap-x-1.5 not-last:after:w-0.5 not-last:after:h-0.5 not-last:after:rounded-full not-last:after:bg-black-500">
+                                13Кб
+                              </span>
+                              <span class="inline-flex items-center gap-x-1.5 not-last:after:w-0.5 not-last:after:h-0.5 not-last:after:rounded-full not-last:after:bg-black-500">
+                                12.06.2024, 12:24
+                              </span>
+                            </span>
+                            <span class="text-black-950">Ваучер</span>
+                          </a>
+                          <a href="javascript:void(0);" class="group h-8 flex items-center justify-between gap-x-3 text-primary-4 border-t border-black-100">
+                            <span class="text-blue-400 transition-colors duration-300 group-hover:text-blue-600">1-местный 1-комнатный 2* корпус 4.pdf</span>
+                            <span class="mr-auto inlinfe-flex items-center gap-x-1.5 text-black-500">
+                              <span class="inline-flex items-center gap-x-1.5 not-last:after:w-0.5 not-last:after:h-0.5 not-last:after:rounded-full not-last:after:bg-black-500">
+                                PDF
+                              </span>
+                              <span class="inline-flex items-center gap-x-1.5 not-last:after:w-0.5 not-last:after:h-0.5 not-last:after:rounded-full not-last:after:bg-black-500">
+                                13Кб
+                              </span>
+                              <span class="inline-flex items-center gap-x-1.5 not-last:after:w-0.5 not-last:after:h-0.5 not-last:after:rounded-full not-last:after:bg-black-500">
+                                12.06.2024, 12:24
+                              </span>
+                            </span>
+                            <span class="text-black-950">Ваучер</span>
+                          </a>
+                        </div>
+                      </div>
+                      <div class="flex flex-col gap-y-3.75 p-6 not-last:border-b not-last:border-black-200">
+                        <span class="text-primary-2 font-medium">Иванов Иван Иванович</span>
+                        <div class="grid grid-cols-4 gap-x-4">
+                          <div class="flex flex-col border-t border-black-100 py-2 text-primary-4">
+                            <span class="text-black-500">Тип документа</span>
+                            <span>Паспорт</span>
+                          </div>
+                          <div class="flex flex-col border-t border-black-100 py-2 text-primary-4">
+                            <span class="text-black-500">Дата рождения</span>
+                            <span>16.05.1989</span>
+                          </div>
+                          <div class="flex flex-col border-t border-black-100 py-2 text-primary-4">
+                            <span class="text-black-500">Гражданство</span>
+                            <span>Россия</span>
+                          </div>
+                          <div class="flex flex-col border-t border-black-100 py-2 text-primary-4">
+                            <span class="text-black-500">Адрес эл. почты</span>
+                            <span>somemail@mail.ru</span>
+                          </div>
+                          <div class="flex flex-col border-t border-black-100 py-2 text-primary-4">
+                            <span class="text-black-500">Серия и номер</span>
+                            <span>5020125569</span>
+                          </div>
+                          <div class="flex flex-col border-t border-black-100 py-2 text-primary-4">
+                            <span class="text-black-500">Титул</span>
+                            <span>Mr</span>
+                          </div>
+                          <div class="flex flex-col border-t border-black-100 py-2 text-primary-4">
+                            <span class="text-black-500">Срок действия</span>
+                            <span>15.09.2025</span>
+                          </div>
+                          <div class="flex flex-col border-t border-black-100 py-2 text-primary-4">
+                            <span class="text-black-500">Телефон</span>
+                            <span>+79261234567</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <form action="#" class="flex flex-col">
+                      <div class="flex flex-col gap-y-2 p-6 border-b border-black-200">
+                        <div class="flex items-center justify-between gap-x-2">
+                          <div class="inline-flex items-center gap-x-1.5 py-1 px-2 pr-2.5 bg-black-100 text-black-600 rounded-xl whitespace-nowrap ">
+                            <span class="w-2 h-2 rounded-full bg-black-600"></span>
+                            <span class="text-primary-4">Закрыт</span>
+                          </div>
+
+                        </div>
+                        <span class="text-primary-4 text-black-500">
+                          Создан: 12.03.2024, 12:32, Иванов И. И. <br>
+                          Выписан 22.11.2024, 17:55, Сидоров А. А. <br>
+                          № брони: 36453 <br>
+                          Статус брони: Выписан
+                        </span>
+                      </div>
+                      <div class="flex flex-col gap-y-4 px-6 py-4 border-b border-black-100">
+                        <h3 class="text-primary-2 font-semibold">Стоимость</h3>
+                        <div class="flex flex-col gap-y-2 text-primary-3">
+                          <div class="h-6 flex items-center justify-between gap-x-2">
+                            <span>Тариф</span>
+                            <span class="flex-auto h-0.5 bg-[url(img/icons/horline.svg)] bg-repeat-x"></span>
+                            <strong class="font-semibold">13 569,00 ₽</strong>
+                          </div>
+                          <div class="flex flex-col gap-y-1 py-1 px-2 bg-white rounded-lg">
+                            <div class="h-6 flex items-center justify-between gap-x-2">
+                              <span class="text-black-500">Комиссия агентства</span>
+                              <span class="flex-auto h-0.5 bg-[url(img/icons/horline.svg)] bg-repeat-x"></span>
+                              <strong class="font-semibold">45,00 ₽</strong>
+                            </div>
+                            <div class="h-6 flex items-center justify-between gap-x-2">
+                              <span class="text-black-500">Ранний заезд</span>
+                              <span class="flex-auto h-0.5 bg-[url(img/icons/horline.svg)] bg-repeat-x"></span>
+                              <strong class="font-semibold">2 450,00 ₽</strong>
+                            </div>
+                            <div class="h-6 flex items-center justify-between gap-x-2">
+                              <span class="text-black-500">Поздний выезд</span>
+                              <span class="flex-auto h-0.5 bg-[url(img/icons/horline.svg)] bg-repeat-x"></span>
+                              <strong class="font-semibold">2 450,00 ₽</strong>
+                            </div>
+                            <div class="h-6 flex items-center justify-between gap-x-2">
+                              <span class="text-black-500">Сервисный сбор</span>
+                              <span class="flex-auto h-0.5 bg-[url(img/icons/horline.svg)] bg-repeat-x"></span>
+                              <strong class="font-semibold">450,00 ₽</strong>
+                            </div>
+                          </div>
+                          <div class="h-6 flex items-center justify-between gap-x-2">
+                            <span>НДС на сервисный сбор</span>
+                            <span class="flex-auto h-0.5 bg-[url(img/icons/horline.svg)] bg-repeat-x"></span>
+                            <strong class="font-semibold">21,00 ₽</strong>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="flex-auto flex flex-col gap-y-4 p-6">
+                        <div class="flex items-end justify-between gap-x-5">
+                          <span class="text-primary-2 font-semibold">Итого</span>
+                          <span class="text-primary-1 font-semibold">10 485,52 ₽</span>
+                        </div>
+                      </div>
+                    </form>
+
+                  </div>
+                </div>
+                <div class="flex flex-col gap-y-4"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="container mx-auto px-5 flex flex-col items-center text-primary-3 text-black-500 gap-x-6 gap-y-3 pb-10.5 md:flex-row">
+      <span class="md:mr-auto">&copy; Демлинк, 2025</span>
+      <div class="flex gap-x-10 items-center text-white lg:mr-30.5">
+        <a class="text-black-500 transition-colors duration-300 hover:text-green-400" href="mailto:help@demlinkatlas.ru"> help@demlinkatlas.ru </a>
+        <a class="text-black-500 transition-colors duration-300 hover:text-green-400" href="#">Документация</a>
+      </div>
+      <div class="flex items-start gap-2">
+        <span>Разработка сайта</span>
+        <a class="block w-16 h-4" href="javascript:void(0);" target="_blank">
+          <svg class="max-w-full max-h-full fill-black-950 transition-colors hover:fill-green-400">
+            <use xlink:href="img/icons/icons.svg#footer_logo" />
+          </svg>
+        </a>
+      </div>
+    </footer>
+
+  </div>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js?_v=20250412173953"></script>
+  <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js?_v=20250412173953"></script>
+  <script src="js/app.min.js?_v=20250412173953"></script>
+
+</body>
+
+</html>
